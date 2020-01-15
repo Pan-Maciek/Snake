@@ -15,4 +15,6 @@ public class Snake {
         if (direction.inv().equals(this.prevDirection)) return;
         this.direction = direction;
     }
+
+    public void setDirection(int x, int y) { setDirection(new Point2D(x, y)); }
 }
