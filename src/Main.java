@@ -11,6 +11,7 @@ import static java.lang.Math.*;
 
 public class Main extends JPanel implements KeyListener {
     int totalWidth = 30; int totalHeight = 30;
+    int centerX = totalWidth / 2, centerY = totalHeight / 2;
     int cellSize = 50;
     Timer timer = new Timer(1000 / 10, x -> gameTick());
     Snake snake = new Snake(totalWidth / 2, totalHeight / 2, 5);
@@ -64,7 +65,12 @@ public class Main extends JPanel implements KeyListener {
         for (int x = offsetX; x < fitX; x++) {
             for (int y = offsetY; y < fitY; y++) {
                 var type = map.getOrDefault(new Point2D(x, y), CellType.Blank);
-                if (type == CellType.Blank) g.setColor(Color.darkGray);
+                if (type == CellType.Blank) {
+                    int xs = 255 / 2 * abs(x - centerX) / totalWidth;
+                    int ys = 255 / 2 * abs(y - centerY) / totalHeight;
+                    var gr = xs + ys;
+                    g.setColor(new Color(gr, gr, gr));
+                }
                 else if (type == CellType.Apple) g.setColor(Color.red);
                 else if (type == CellType.Snake) g.setColor(Color.gray);
                 g.fillRect((x - offsetX) * cellSize, (y - offsetY) * cellSize, cellSize, cellSize);
@@ -93,6 +99,7 @@ public class Main extends JPanel implements KeyListener {
             System.out.println("Game over!");
         }
         map.put(newPos, CellType.Snake);
+        snake.prevDirection = snake.direction;
     }
 
     private void gameTick() {
@@ -101,15 +108,18 @@ public class Main extends JPanel implements KeyListener {
     }
     public void keyTyped(KeyEvent keyEvent) { }
     public void keyPressed(KeyEvent keyEvent) {
-        if (keyEvent.getKeyChar() == 'w') snake.direction = new Point2D(0, -1);
-        if (keyEvent.getKeyChar() == 's') snake.direction = new Point2D(0, 1);
-        if (keyEvent.getKeyChar() == 'a') snake.direction = new Point2D(-1, 0);
-        if (keyEvent.getKeyChar() == 'd') snake.direction = new Point2D(1, 0);
+        var direction = snake.direction;
+        if (keyEvent.getKeyChar() == 'w') direction = new Point2D(0, -1);
+        if (keyEvent.getKeyChar() == 's') direction = new Point2D(0, 1);
+        if (keyEvent.getKeyChar() == 'a') direction = new Point2D(-1, 0);
+        if (keyEvent.getKeyChar() == 'd') direction = new Point2D(1, 0);
 
-        if (keyEvent.getKeyChar() == 'k') snake.direction = new Point2D(0, -1);
-        if (keyEvent.getKeyChar() == 'j') snake.direction = new Point2D(0, 1);
-        if (keyEvent.getKeyChar() == 'h') snake.direction = new Point2D(-1, 0);
-        if (keyEvent.getKeyChar() == 'l') snake.direction = new Point2D(1, 0);
+        if (keyEvent.getKeyChar() == 'k') direction = new Point2D(0, -1);
+        if (keyEvent.getKeyChar() == 'j') direction = new Point2D(0, 1);
+        if (keyEvent.getKeyChar() == 'h') direction = new Point2D(-1, 0);
+        if (keyEvent.getKeyChar() == 'l') direction = new Point2D(1, 0);
+
+        snake.setDirection(direction);
     }
     public void keyReleased(KeyEvent keyEvent) { }
 }

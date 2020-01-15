@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9e7214d6-5933-41c8-88ca-2b10bbccd2aa" name="Default Changelist" comment="" />
+    <list default="true" id="9e7214d6-5933-41c8-88ca-2b10bbccd2aa" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Snake/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Snake/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Snake/Point2D.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Snake/Point2D.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Snake/Snake.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Snake/Snake.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Point2D.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Point2D.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Snake.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Snake.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -21,10 +30,14 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="ProjectCodeStyleSettingsMigration">
     <option name="version" value="1" />
   </component>
   <component name="ProjectId" id="1WR0x33gykuCWvnxjWKStG0Gnow" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
@@ -32,6 +45,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
@@ -90,22 +104,22 @@
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="746" y="323" key="FileChooserDialogImpl/0.0.1920.1080@0.0.1920.1080" timestamp="1579097851154" />
-    <state width="1874" height="289" key="GridCell.Tab.0.bottom" timestamp="1579103381918">
+    <state width="1874" height="289" key="GridCell.Tab.0.bottom" timestamp="1579108478109">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1874" height="289" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1579103381918" />
-    <state width="1874" height="289" key="GridCell.Tab.0.center" timestamp="1579103381918">
+    <state width="1874" height="289" key="GridCell.Tab.0.bottom/0.0.1920.1080@0.0.1920.1080" timestamp="1579108478109" />
+    <state width="1874" height="289" key="GridCell.Tab.0.center" timestamp="1579108478109">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1874" height="289" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1579103381918" />
-    <state width="1874" height="289" key="GridCell.Tab.0.left" timestamp="1579103381917">
+    <state width="1874" height="289" key="GridCell.Tab.0.center/0.0.1920.1080@0.0.1920.1080" timestamp="1579108478109" />
+    <state width="1874" height="289" key="GridCell.Tab.0.left" timestamp="1579108478108">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1874" height="289" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1579103381917" />
-    <state width="1874" height="289" key="GridCell.Tab.0.right" timestamp="1579103381918">
+    <state width="1874" height="289" key="GridCell.Tab.0.left/0.0.1920.1080@0.0.1920.1080" timestamp="1579108478108" />
+    <state width="1874" height="289" key="GridCell.Tab.0.right" timestamp="1579108478109">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state width="1874" height="289" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1579103381918" />
+    <state width="1874" height="289" key="GridCell.Tab.0.right/0.0.1920.1080@0.0.1920.1080" timestamp="1579108478109" />
     <state width="1874" height="357" key="GridCell.Tab.1.bottom" timestamp="1579102634226">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
@@ -126,9 +140,9 @@
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="274" y="257" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.0.1920.1080@0.0.1920.1080" timestamp="1579101795388" />
-    <state x="621" y="256" width="672" height="678" key="search.everywhere.popup" timestamp="1579103303275">
+    <state x="621" y="256" width="672" height="678" key="search.everywhere.popup" timestamp="1579103992717">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="621" y="256" width="672" height="678" key="search.everywhere.popup/0.0.1920.1080@0.0.1920.1080" timestamp="1579103303275" />
+    <state x="621" y="256" width="672" height="678" key="search.everywhere.popup/0.0.1920.1080@0.0.1920.1080" timestamp="1579103992717" />
   </component>
 </project>

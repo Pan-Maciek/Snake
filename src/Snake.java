@@ -9,4 +9,10 @@ public class Snake {
     }
     Deque<Point2D> body = new LinkedList<>();
     Point2D direction = new Point2D(-1, 0);
+    Point2D prevDirection;
+
+    public void setDirection(Point2D direction) {
+        if (direction.inv().equals(this.prevDirection)) return;
+        this.direction = direction;
+    }
 }

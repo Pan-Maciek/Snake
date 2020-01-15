@@ -27,4 +27,8 @@ public class Point2D {
     public Point2D add(Point2D direction) {
         return new Point2D(x + direction.x, y + direction.y);
     }
+
+    public Point2D inv() {
+        return new Point2D(-x, -y);
+    }
 }
