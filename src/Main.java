@@ -12,43 +12,27 @@ import static java.lang.Math.*;
 
 public class Main extends JPanel implements KeyListener {
     // config
-    int totalWidth = 300, totalHeight = 300;
+    int totalWidth = 100, totalHeight = 100;
     int cellSize = 50;
-    int miniMapScale = 1;
 
     int centerX = totalWidth / 2, centerY = totalHeight / 2;
 
     Timer timer = new Timer(1000 / 10, x -> onTick());
 
     Snake snake = new Snake(centerX, centerY, 5);
-    Map<Point2D, CellType> map = new HashMap<>();
+    GameMap map = new GameMap(totalWidth, totalHeight);
 
     Random random = new Random();
 
     // rendering
-    BufferedImage mapImage, miniMapImage;
-    Graphics2D mg;
+    BufferedImage mapImage;
     Main() {
-        miniMapImage = new BufferedImage(totalWidth * miniMapScale, totalHeight * miniMapScale, BufferedImage.TYPE_INT_ARGB);
-        mg = (Graphics2D) miniMapImage.getGraphics();
-        mg.setComposite(AlphaComposite.getInstance(AlphaComposite.CLEAR, 0f));
-        map.put(snake.body.getFirst(), CellType.Snake);
-        for (int i = 0; i < sqrt(totalWidth * totalHeight); i++)
-            place(CellType.Apple);
-        for (int i = 0; i < sqrt(totalWidth * totalHeight); i++)
-            place(CellType.Trap);
-    }
+        map.changeCell(snake.body.getFirst(), CellType.Snake);
 
-    void place(CellType type) {
-        for (int i = 0; i < 1000; i++) {
-            int x = random.nextInt(totalWidth);
-            int y = random.nextInt(totalHeight);
-            var pos = new Point2D(x, y);
-            if (map.get(pos) == null) {
-                updateCell(pos, type);
-                return;
-            };
-        }
+        for (int i = 0; i < sqrt(totalWidth * totalHeight); i++)
+            map.placeRandom(CellType.Apple);
+        for (int i = 0; i < sqrt(totalWidth * totalHeight); i++)
+            map.placeRandom(CellType.Trap);
     }
 
     public static void main(String[] args) {
@@ -62,30 +46,10 @@ public class Main extends JPanel implements KeyListener {
 
     @Override
     public void paint(Graphics g) {
+        super.paint(g);
         preRender();
         g.drawImage(mapImage, 0, 0, this);
         g.setColor(Color.white);
-        int x = getWidth() - totalWidth * miniMapScale - 5;
-        int y = getHeight() - totalHeight * miniMapScale- 5;
-        g.drawRect(x - 1, y - 1, totalWidth * miniMapScale + 2, totalHeight * miniMapScale + 2);
-        g.drawImage(miniMapImage, x, y, this);
-    }
-
-    void updateCell(Point2D position, CellType type) {
-        clearCell(position);
-        map.put(position, type);
-        var g = miniMapImage.getGraphics();
-        if (type == CellType.Snake) g.setColor(new Color(255, 255, 255, 120));
-        else if (type == CellType.Apple) g.setColor(new Color(0,255,0,120));
-        else if (type == CellType.Trap) g.setColor(new Color(255, 0, 0, 120));
-        g.fillRect(position.x * miniMapScale, position.y * miniMapScale, miniMapScale, miniMapScale);
-    }
-
-    void clearCell(Point2D position) {
-        var g = miniMapImage.getGraphics();
-        mg.setColor(new Color(0, 0, 0, 0));
-        mg.fillRect(position.x * miniMapScale, position.y * miniMapScale, miniMapScale, miniMapScale);
-        map.remove(position);
     }
 
     public void preRender() {
@@ -105,7 +69,7 @@ public class Main extends JPanel implements KeyListener {
 
         for (int x = offsetX; x < fitX; x++) {
             for (int y = offsetY; y < fitY; y++) {
-                var type = map.getOrDefault(new Point2D(x, y), CellType.Blank);
+                var type = map.cellAt(new Point2D(x, y), CellType.Blank);
                 if (type == CellType.Blank) {
                     if ((x + y) % 2 == 0) g.setColor(new Color(18, 18, 18));
                     else g.setColor(new Color(19, 19, 19));
@@ -119,6 +83,15 @@ public class Main extends JPanel implements KeyListener {
         int x = snake.body.getFirst().x, y = snake.body.getFirst().y;
         g.setColor(Color.white);
         g.fillRect((x - offsetX) * cellSize + drawOffsetX, (y - offsetY) * cellSize + drawOffsetY, cellSize, cellSize);
+        var renderMiniMap = drawOffsetX + drawOffsetY == 0;
+
+        if (renderMiniMap) {
+            x = getWidth() - totalWidth * map.miniMapScale - 5;
+            y = getHeight() - totalHeight * map.miniMapScale- 5;
+            g.drawRect(x - 1, y - 1, totalWidth * map.miniMapScale + 2, totalHeight * map.miniMapScale + 2);
+            g.drawImage(map.image, x, y, this);
+        }
+
         mapImage = img;
     }
 
@@ -126,20 +99,20 @@ public class Main extends JPanel implements KeyListener {
         var newPos = snake.body.getFirst().add(snake.direction);
         snake.body.addFirst(newPos);
 
-        if (map.get(newPos) == CellType.Apple) place(CellType.Apple);
+        if (map.cellAt(newPos) == CellType.Apple) map.placeRandom(CellType.Apple);
         else {
             var last = snake.body.removeLast();
             if (!last.equals(snake.body.getLast()))
-                clearCell(last);
+                map.clearCell(last);
         }
 
         if (newPos.x < 0 || newPos.x >= totalWidth ||
             newPos.y < 0 || newPos.y >= totalHeight ||
-            map.get(newPos) == CellType.Snake || map.get(newPos) == CellType.Trap) {
+            map.cellAt(newPos) == CellType.Snake || map.cellAt(newPos) == CellType.Trap) {
             timer.stop();
             System.out.println("Game over!");
         }
-        updateCell(newPos, CellType.Snake);
+        map.changeCell(newPos, CellType.Snake);
         snake.prevDirection = snake.direction;
     }
 
