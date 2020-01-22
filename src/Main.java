@@ -3,9 +3,6 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
 import  static java.awt.event.KeyEvent.*;
 
 import static java.lang.Math.*;
@@ -19,15 +16,18 @@ public class Main extends JPanel implements KeyListener {
 
     Timer timer = new Timer(1000 / 10, x -> onTick());
 
-    Snake snake = new Snake(centerX, centerY, 5);
-    GameMap map = new GameMap(totalWidth, totalHeight);
-
-    Random random = new Random();
+    Snake snake;
+    GameMap map;
 
     // rendering
     BufferedImage mapImage;
     Main() {
-        map.changeCell(snake.body.getFirst(), CellType.Snake);
+        newGame();
+    }
+
+    void newGame() {
+        snake = new Snake(centerX, centerY, 5);
+        map = new GameMap(totalWidth, totalHeight);
 
         for (int i = 0; i < sqrt(totalWidth * totalHeight); i++)
             map.placeRandom(CellType.Apple);
@@ -36,12 +36,13 @@ public class Main extends JPanel implements KeyListener {
     }
 
     public static void main(String[] args) {
-        var window = new JFrame();
+        var window = new JFrame("Snake!");
+        window.setPreferredSize(new Dimension(400, 400));
         var panel = new Main();
         window.add(panel);
-        panel.timer.start();
         window.setVisible(true);
         window.addKeyListener(panel);
+        window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
     @Override
@@ -111,6 +112,8 @@ public class Main extends JPanel implements KeyListener {
             map.cellAt(newPos) == CellType.Snake || map.cellAt(newPos) == CellType.Trap) {
             timer.stop();
             System.out.println("Game over!");
+            newGame();
+            return;
         }
         map.changeCell(newPos, CellType.Snake);
         snake.prevDirection = snake.direction;
@@ -124,6 +127,7 @@ public class Main extends JPanel implements KeyListener {
     private void update() { move(); }
 
     public void keyPressed(KeyEvent keyEvent) {
+        if (!timer.isRunning()) timer.start();
         var e = keyEvent.getKeyCode();
         if (e == VK_W || e == VK_K || e == VK_UP) snake.setDirection(0, -1);
         if (e == VK_S || e == VK_J || e == VK_DOWN) snake.setDirection(0, 1);
